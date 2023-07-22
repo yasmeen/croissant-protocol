@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@gnosis.pm/zodiac": "^3.3.4"
+  }
+}
