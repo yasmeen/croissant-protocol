@@ -2,24 +2,24 @@
 pragma solidity ^0.8.13;
 
 import "ds-test/test.sol";
-import "../src/Croissant.sol";
+import "../src/CroissantPay.sol";
 
-contract CroissantTest is DSTest {
-    Croissant croissant;
+contract CroissantPayTest is DSTest {
+    CroissantPay croissant;
     SavingsDai savingsDai;
     Delay delay;
     SavingsDaiOracle savingsDaiOracle;
 
     function beforeEach() public {
         // Replace these addresses with the actual deployed contract addresses on Goerli
-        address savingsDaiAddress = 0x0000000000000000000000000000000000000000;
-        address delayAddress = 0x0000000000000000000000000000000000000000;
-        address savingsDaiOracleAddress = 0x0000000000000000000000000000000000000000;
+        address savingsDaiAddress = 0xD8134205b0328F5676aaeFb3B2a0DC15f4029d8C;
+        address delayAddress = 0xD62129BF40CD1694b3d9D9847367783a1A4d5cB4;
+        address savingsDaiOracleAddress = 0xdF53542ff2262166c5009ddE52D3abAc313d651c;
 
         savingsDai = SavingsDai(savingsDaiAddress);
         delay = Delay(delayAddress);
         savingsDaiOracle = SavingsDaiOracle(savingsDaiOracleAddress);
-        croissant = new Croissant(savingsDai, delay, savingsDaiOracle);
+        croissant = new CroissantPay(savingsDai, delay, savingsDaiOracle);
 
         bytes memory initializeParams = abi.encode(savingsDai, delay, savingsDaiOracle);
         croissant.setUp(initializeParams);
@@ -32,7 +32,7 @@ contract CroissantTest is DSTest {
     }
 
     function test_schedulePayment() public {
-        address recipient = 0x0000000000000000000000000000000000000000;
+        address recipient = 0x751f1308A2070D32B7E89A37e2Ed84643e7DE6d5;
         uint256 initialBalance = savingsDai.balanceOf(recipient);
         uint256 amount = 100; // Replace this with the actual amount
         uint256 date = block.timestamp + 7 days; // One week from now

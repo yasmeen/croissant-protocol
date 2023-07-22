@@ -6,16 +6,10 @@ import "zodiac/Delay.sol"; // Gnosis Safe Zodiac's Delay modifier
 import {SavingsDai} from "maker-dao/SavingsDai.sol"; // Maker DAO sDAI contract
 import {SavingsDaiOracle} from "maker-dao/SavingsDaiOracle.sol"; // sDAI oracle for DSR
 
-contract Croissant is Module {
+contract CroissantPay is Module {
     SavingsDai public savingsDai;
     Delay public delay;
     SavingsDaiOracle public savingsDaiOracle;
-
-    // constructor(SavingsDai _savingsDai, Delay _delay, SavingsDaiOracle _savingsDaiOracle) {
-    //     savingsDai = _savingsDai;
-    //     delay = _delay;
-    //     savingsDaiOracle = _savingsDaiOracle;
-    // }
 
     function setUp(bytes memory initializeParams) public override {
         (address _savingsDai, address _delay, address _savingsDaiOracle) =
