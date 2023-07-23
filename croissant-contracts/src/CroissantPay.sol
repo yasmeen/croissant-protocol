@@ -2,25 +2,22 @@
 pragma solidity ^0.8.13;
 
 import "@gnosis.pm/zodiac/contracts/core/Module.sol";
-import {Delay} from "zodiac/Delay.sol"; // Gnosis Safe Zodiac's Delay modifier
-import {SavingsDai} from "maker-dao/SavingsDai.sol"; // Maker DAO sDAI contract
-import {SavingsDaiOracle} from "maker-dao/SavingsDaiOracle.sol"; // sDAI oracle for DSR
-import {Dai} from "maker-dao/Dai.sol";
+import {IDai} from "./interfaces/IDai.sol"; // Maker DAO DAI
+import {ISavingsDai} from "./interfaces/ISavingsDai.sol"; // Maker DAO sDAI
+import {IDelay} from "./interfaces/IDelay.sol"; // Gnosis Safe Zodiac's Delay modifier
+import {ISavingsDaiOracle} from "./interfaces/ISavingsDaiOracle.sol"; // Maker DAO sDAI oracle for DSR
 
 contract CroissantPay is Module {
-    Dai public dai;
-    SavingsDai public savingsDai;
-    Delay public delay;
-    SavingsDaiOracle public savingsDaiOracle;
+    IDai public dai;
+    ISavingsDai public savingsDai;
+    IDelay public delay;
+    ISavingsDaiOracle public savingsDaiOracle;
 
-    function setUp(bytes memory initializeParams) public override {
-        (address _dai, address _savingsDai, address _delay, address _savingsDaiOracle) = abi
-            .decode(initializeParams, (address, address, address, address));
-
-        dai = Dai(_dai);
-        savingsDai = SavingsDai(_savingsDai);
-        delay = Delay(_delay);
-        savingsDaiOracle = SavingsDaiOracle(_savingsDaiOracle);
+    function setUp() public override {
+        dai = IDai(address(0x73967c6a0904aa032c103b4104747e88c566b1a2));
+        savingsDai = ISavingsDai(address(0xD8134205b0328F5676aaeFb3B2a0DC15f4029d8C));
+        delay = IDelay(address(0xD62129BF40CD1694b3d9D9847367783a1A4d5cB4));
+        savingsDaiOracle = ISavingsDaiOracle(address(0xdF53542ff2262166c5009ddE52D3abAc313d651c));
     }
 
     function schedulePayment(
